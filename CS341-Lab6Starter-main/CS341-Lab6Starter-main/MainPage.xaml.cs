@@ -1,4 +1,7 @@
 ﻿namespace Lab6Starter;
+
+using AndroidX.Annotations;
+using Java.Security.Cert;
 /**
  * 
  * Name: 
@@ -10,6 +13,7 @@
  */
 
 using Lab6Starter;
+using static Android.InputMethodServices.Keyboard;
 
 
 /// <summary>
@@ -108,7 +112,15 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void ResetGame()
     {
-
+        
+        for (int r = 0; r < TicTacToeGame.GRID_SIZE; r++)
+        {
+            for (int c = 0; c < TicTacToeGame.GRID_SIZE; c++)
+            {
+                grid[r, c].Text = "";
+            }
+        }
+        //hello
     }
 
 }
