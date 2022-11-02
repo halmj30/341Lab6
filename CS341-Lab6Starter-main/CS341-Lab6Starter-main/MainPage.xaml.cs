@@ -54,7 +54,7 @@ public partial class MainPage : ContentPage
         FindTappedButtonRowCol(button, out row, out col);
         if (button.Text.ToString() != "")
         { // if the button has an X or O, bail
-            DisplayAlert("Illegal move", "Fill this in with something more meaningful", "OK");
+            DisplayAlert("Illegal move", "Try again, chump", "Darn it");
             return;
         }
         button.Text = currentPlayer.ToString();

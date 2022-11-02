@@ -112,7 +112,7 @@ internal class TicTacToeGame
         int rowSum;
         int colSum;
         int diagonalSum;
-        Boolean gridFilled = true;                   // if grid is filled, and no winner, there's a tie
+        Boolean gridFilled = false;                   // if grid is filled, and no winner, there's a tie
 
         for (int r = 0; r < GRID_SIZE; r++)         // check the row sums
         {
