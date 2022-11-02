@@ -120,7 +120,7 @@ public partial class MainPage : ContentPage
                 grid[r, c].Text = "";
             }
         }
-        //hello
+        
     }
 
 }
