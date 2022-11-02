@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Javax.Security.Auth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,9 @@ internal class TicTacToeGame
     internal const int GRID_SIZE = 3;
     Player[,] grid = new Player[GRID_SIZE, GRID_SIZE];
     int[] scores = { 0, 0 };
-
+    private DateTime _start;
+    Boolean isFirstTurn = true;
+         
     /// <summary>
     /// The player about to make a move
     /// </summary>
@@ -72,6 +75,7 @@ internal class TicTacToeGame
     /// </summary>
     public TicTacToeGame()
     {
+        
         ResetGame();
     }
 
@@ -85,6 +89,12 @@ internal class TicTacToeGame
     /// <returns>true if there is a victor</returns>
     public Boolean ProcessTurn(int row, int col, out Player victor)
     {
+        if (isFirstTurn)
+        {
+            _start = DateTime.Now;
+            isFirstTurn = false;
+        }
+       
         if (grid[row, col] == Player.X || grid[row, col] == Player.O) // already occupied, so ignore
         {
             victor = Player.Nobody;
@@ -124,6 +134,7 @@ internal class TicTacToeGame
                 {
                     gridFilled = false;
                 }
+                gridFilled = true;
             }
             if (rowSum == 0)
             {
@@ -200,6 +211,7 @@ internal class TicTacToeGame
             }
         }
         CurrentPlayer = Player.X; // X always goes first
+       
     }
 
     /// <summary>
