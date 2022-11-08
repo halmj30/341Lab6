@@ -10,11 +10,11 @@ namespace Lab6Starter;
 
 /**
  * 
- * Name: Jack Halm
+ * Name: Jack Halm and Nick Miller
  * Date: 11/7/2022
  * Description: A TicTacToe Game
- * Bugs:
- * Reflection:
+ * Bugs: None
+ * Reflection: The Git part was easy, Features 2 and 3 were 30 seconds of work, 5 and 6 took a couple minutes of work. 1 and 4 were the hardest.
  * 
  */
 
@@ -26,7 +26,7 @@ internal class TicTacToeGame
     internal const int GRID_SIZE = 3;
     Player[,] grid = new Player[GRID_SIZE, GRID_SIZE];
     int[] scores = { 0, 0 }; // O score, X score
-    LinkedList<String> times = new();
+    LinkedList<String> times = new(); //List of times
     private Stopwatch _start;
     Boolean isFirstTurn = true;
 
@@ -72,6 +72,10 @@ internal class TicTacToeGame
         }
     }
 
+    /// <summary>
+    /// get the latestgamestime
+    /// </summary>
+    /// <returns></returns>
     public string lastgamestime() { 
         return times.Last.Value;
     }
@@ -117,7 +121,7 @@ internal class TicTacToeGame
         }
 
         isFirstTurn = true;
-        times.AddLast(_start.ElapsedMilliseconds/1000+"");
+        times.AddLast(_start.ElapsedMilliseconds/1000+"");//add the latest time to the list of times
 
         if (victor != Player.Both) //if the game is still going on and not a tie
         {

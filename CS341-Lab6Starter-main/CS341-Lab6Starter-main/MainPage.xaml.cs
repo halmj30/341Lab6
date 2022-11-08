@@ -1,22 +1,17 @@
 ﻿namespace Lab6Starter;
-
-//using AndroidX.Annotations;
-//using Java.Security.Cert;
 /**
  * 
- * Name: Jack Halm
+ * Name: Jack Halm and Nick Miller
  * Date: 11/7/2022
  * Description: A TicTacToe Game
- * Bugs:
- * Reflection:
+ * Bugs: None
+ * Reflection: The Git part was easy, Features 2 and 3 were 30 seconds of work, 5 and 6 took a couple minutes of work. 1 and 4 were the hardest.
  * 
  */
 
 using Lab6Starter;
 using System.Collections.ObjectModel;
 using Npgsql;
-
-//using static Android.InputMethodServices.Keyboard;
 
 
 /// <summary>
@@ -26,8 +21,8 @@ public partial class MainPage : ContentPage
 {
     TicTacToeGame ticTacToe; // model class
     Button[,] grid;          // stores the buttons
-    Boolean randomColor = false;
-    ObservableCollection<GameData> games = new();
+    Boolean randomColor = false; 
+    ObservableCollection<GameData> games = new(); //A Collection of GameData which is the outcomes of previous games
 
 
 
@@ -36,13 +31,16 @@ public partial class MainPage : ContentPage
     /// </summary>
     public MainPage()
     {
-        InitializeComponent();
-        ticTacToe = new TicTacToeGame();
-        getGamesFromDB();
-        GamesListView.ItemsSource = games;
+        InitializeComponent(); //loads the page on the screen
+        ticTacToe = new TicTacToeGame(); //resets the game
+        getGamesFromDB(); //loads games with GameData(s) from the DataBase
+        GamesListView.ItemsSource = games; //loads the ListView with the games
         grid = new Button[TicTacToeGame.GRID_SIZE, TicTacToeGame.GRID_SIZE] { { Tile00, Tile01, Tile02 }, { Tile10, Tile11, Tile12 }, { Tile20, Tile21, Tile22 } };
     }
 
+    /// <summary>
+    /// Load games with GameData(s) from the DataBase
+    /// </summary>
     void getGamesFromDB()
     {
         var bitHost = "db.bit.io";
@@ -59,11 +57,11 @@ public partial class MainPage : ContentPage
             using var cmd = new NpgsqlCommand(query, con);
             using NpgsqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
+            while (reader.Read())//for each item
             {
-                var gameBeingAdded = new GameData(null, reader[1] as String);
-                gameBeingAdded.Winner = reader[0] as String;
-                games.Add(gameBeingAdded);
+                var gameBeingAdded = new GameData(null, reader[1] as String);//make a gameData from online
+                gameBeingAdded.Winner = reader[0] as String;//add the winner
+                games.Add(gameBeingAdded);//add gameBeingadded to the listview
             }
             con.Close();
         } catch (Exception e)
@@ -72,15 +70,20 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// Switch the buttons colors
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     void OnToggled(object sender, ToggledEventArgs e)
     {
-        randomColor = !randomColor;
+        randomColor = !randomColor; //toggle the random color
         if (randomColor)
         {
             //set buttons colors randomly
             Random rand = new();
-            Color[] randomcolors = { Colors.Green, Colors.Blue, Colors.Red };
-            Tile00.BackgroundColor = randomcolors[rand.Next(0,3)];
+            Color[] randomcolors = { Colors.Green, Colors.Blue, Colors.Red };//create list of random colors
+            Tile00.BackgroundColor = randomcolors[rand.Next(0, 3)]; //set each tile to a random one of the colors
             Tile01.BackgroundColor = randomcolors[rand.Next(0, 3)];
             Tile02.BackgroundColor = randomcolors[rand.Next(0, 3)];
             Tile10.BackgroundColor = randomcolors[rand.Next(0, 3)];
@@ -132,7 +135,6 @@ public partial class MainPage : ContentPage
         if (gameOver)
         {
             CelebrateVictory(victor);
-
         }
     }
 
@@ -184,6 +186,10 @@ public partial class MainPage : ContentPage
         ResetGame();
     }
 
+    /// <summary>
+    /// Add a GameData to the DataBase
+    /// </summary>
+    /// <param name="game"></param>
     private void addDataToDB(GameData game)
     {
         var bitHost = "db.bit.io";
@@ -199,9 +205,9 @@ public partial class MainPage : ContentPage
             //var query = String.Format("INSERT INTO \"gamedata\" VALUES({0},{1})", game.Winner, game.Time);
             var query = "INSERT INTO \"gamedata\" VALUES(@winner, @time)";
             using var cmd = new NpgsqlCommand(query, con);
-            cmd.Parameters.AddWithValue("winner", game.Winner);
-            cmd.Parameters.AddWithValue("time", game.Time);
-            using NpgsqlDataReader reader = cmd.ExecuteReader();
+            cmd.Parameters.AddWithValue("winner", game.Winner);//add the winner
+            cmd.Parameters.AddWithValue("time", game.Time); //add the time
+            using NpgsqlDataReader reader = cmd.ExecuteReader(); //add the data
             
             con.Close();
         }
