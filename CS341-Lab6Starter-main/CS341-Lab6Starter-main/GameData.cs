@@ -9,19 +9,22 @@ namespace Lab6Starter
 {
     class GameData
     {
-        public GameData(Player weiner, String Tiem)
+        public GameData(Player? weiner, String Tiem)
         {
-            switch (weiner)
+            if (weiner != null)
             {
-                case Player.O:
-                    Winner = "O";
-                    break;
-                case Player.X:
-                    Winner = "X";
-                    break;
-                case Player.Both:
-                    Winner = "Nobody";
-                    break;
+                switch (weiner)
+                {
+                    case Player.O:
+                        Winner = "O";
+                        break;
+                    case Player.X:
+                        Winner = "X";
+                        break;
+                    case Player.Both:
+                        Winner = "Tie";
+                        break;
+                }
             }
             Time = Tiem;
         }

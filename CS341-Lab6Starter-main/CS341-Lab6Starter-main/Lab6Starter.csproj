@@ -57,4 +57,7 @@
 	<ItemGroup>
 	  <MauiXaml Remove="MainWindow.xaml" />
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Npgsql" Version="6.0.7" />
+	</ItemGroup>
 </Project>

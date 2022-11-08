@@ -14,6 +14,7 @@
 
 using Lab6Starter;
 using System.Collections.ObjectModel;
+using Npgsql;
 
 //using static Android.InputMethodServices.Keyboard;
 
@@ -37,8 +38,38 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         ticTacToe = new TicTacToeGame();
+        getGamesFromDB();
         GamesListView.ItemsSource = games;
         grid = new Button[TicTacToeGame.GRID_SIZE, TicTacToeGame.GRID_SIZE] { { Tile00, Tile01, Tile02 }, { Tile10, Tile11, Tile12 }, { Tile20, Tile21, Tile22 } };
+    }
+
+    void getGamesFromDB()
+    {
+        var bitHost = "db.bit.io";
+        var bitApiKey = "v2_3vPwz_a5t2YWH7XNN59ycUFWTxAaZ";
+        var bitUser = "halmj30";
+        var bitDbName = "halmj30/Lab8";
+        var cs = $"Host={bitHost};Username={bitUser};Password={bitApiKey};Database={bitDbName}";
+        try
+        {
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            var query = "SELECT * FROM \"gamedata\" limit 10;";
+            using var cmd = new NpgsqlCommand(query, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var gameBeingAdded = new GameData(null, reader[1] as String);
+                gameBeingAdded.Winner = reader[0] as String;
+                games.Add(gameBeingAdded);
+            }
+            con.Close();
+        } catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
     void OnToggled(object sender, ToggledEventArgs e)
@@ -148,9 +179,36 @@ public partial class MainPage : ContentPage
         games.Add(game);
 
         //send to bit.io
-
+        addDataToDB(game);
 
         ResetGame();
+    }
+
+    private void addDataToDB(GameData game)
+    {
+        var bitHost = "db.bit.io";
+        var bitApiKey = "v2_3vPwz_a5t2YWH7XNN59ycUFWTxAaZ";
+        var bitUser = "halmj30";
+        var bitDbName = "halmj30/Lab8";
+        var cs = $"Host={bitHost};Username={bitUser};Password={bitApiKey};Database={bitDbName}";
+        try
+        {
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+
+            //var query = String.Format("INSERT INTO \"gamedata\" VALUES({0},{1})", game.Winner, game.Time);
+            var query = "INSERT INTO \"gamedata\" VALUES(@winner, @time)";
+            using var cmd = new NpgsqlCommand(query, con);
+            cmd.Parameters.AddWithValue("winner", game.Winner);
+            cmd.Parameters.AddWithValue("time", game.Time);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+            
+            con.Close();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
     /// <summary>
