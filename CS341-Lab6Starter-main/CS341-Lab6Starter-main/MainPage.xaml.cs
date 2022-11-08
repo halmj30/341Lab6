@@ -23,6 +23,7 @@ public partial class MainPage : ContentPage
 {
     TicTacToeGame ticTacToe; // model class
     Button[,] grid;          // stores the buttons
+    Boolean randomColor = false;
 
 
     /// <summary>
@@ -35,6 +36,38 @@ public partial class MainPage : ContentPage
         //set x score
         //set y score
         grid = new Button[TicTacToeGame.GRID_SIZE, TicTacToeGame.GRID_SIZE] { { Tile00, Tile01, Tile02 }, { Tile10, Tile11, Tile12 }, { Tile20, Tile21, Tile22 } };
+    }
+
+    void OnToggled(object sender, ToggledEventArgs e)
+    {
+        randomColor = !randomColor;
+        if (randomColor)
+        {
+            //set buttons colors randomly
+            Random rand = new();
+            Color[] randomcolors = { Colors.Green, Colors.Blue, Colors.Red };
+            Tile00.BackgroundColor = randomcolors[rand.Next(0,3)];
+            Tile01.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile02.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile10.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile11.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile12.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile20.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile21.BackgroundColor = randomcolors[rand.Next(0, 3)];
+            Tile22.BackgroundColor = randomcolors[rand.Next(0, 3)];
+        } else
+        {
+            //reset colors
+            Tile00.BackgroundColor = Colors.Red;
+            Tile01.BackgroundColor = Colors.Blue;
+            Tile02.BackgroundColor = Colors.Green;
+            Tile10.BackgroundColor = Colors.Blue;
+            Tile11.BackgroundColor = Colors.Green;
+            Tile12.BackgroundColor = Colors.Red;
+            Tile20.BackgroundColor = Colors.Green;
+            Tile21.BackgroundColor = Colors.Red;
+            Tile22.BackgroundColor = Colors.Blue;
+        }
     }
 
     /// <summary>

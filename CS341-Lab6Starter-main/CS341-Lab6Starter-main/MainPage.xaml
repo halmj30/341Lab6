@@ -5,7 +5,8 @@
 
     <ScrollView>
         <VerticalStackLayout>
-
+            
+            <Switch x:Name="RandomSwitch" Toggled="OnToggled" VerticalOptions="Center" />
             <Label x:Name="XScoreLBL" Text="X's Score: 0"   VerticalOptions="Center" FontSize="24"/>
             <Label x:Name="OScoreLBL" Text="Y's Score: 0"  VerticalOptions="Center" FontSize="24"/>
             <Label x:Name="TimerLBL" Text="" VerticalOptions="Center" FontSize="24"/>
@@ -22,8 +23,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button HeightRequest = "100" WidthRequest="100" BackgroundColor="Red" Grid.Row="0" Grid.Column="0" x:Name="Tile00" Text="" HorizontalOptions="Center"  VerticalOptions="Center"  Clicked="HandleButtonClick" FontSize="24"/>
-                <Button HeightRequest = "100" WidthRequest="100"  BackgroundColor="Blue" Grid.Row="0" Grid.Column="1" x:Name="Tile01" Text="" HorizontalOptions="Center"  VerticalOptions="Center" Clicked="HandleButtonClick" FontSize="24"/>
-                <Button HeightRequest = "100" WidthRequest="100"  BackgroundColor="Green" Grid.Row="0" Grid.Column="2" x:Name="Tile02" Text="" HorizontalOptions="Center"  VerticalOptions="Center" Clicked="HandleButtonClick" FontSize="24"/>
+                <Button HeightRequest = "100" WidthRequest="100" BackgroundColor="Blue" Grid.Row="0" Grid.Column="1" x:Name="Tile01" Text="" HorizontalOptions="Center"  VerticalOptions="Center" Clicked="HandleButtonClick" FontSize="24"/>
+                <Button HeightRequest = "100" WidthRequest="100" BackgroundColor="Green" Grid.Row="0" Grid.Column="2" x:Name="Tile02" Text="" HorizontalOptions="Center"  VerticalOptions="Center" Clicked="HandleButtonClick" FontSize="24"/>
                 <Button HeightRequest = "100" WidthRequest="100" BackgroundColor="Blue" Grid.Row="1" Grid.Column="0" x:Name="Tile10" Text="" HorizontalOptions="Center"  VerticalOptions="Center"  Clicked="HandleButtonClick" FontSize="24"/>
                 <Button HeightRequest = "100" WidthRequest="100" BackgroundColor="Green" Grid.Row="1" Grid.Column="1" x:Name="Tile11" Text="" HorizontalOptions="Center"  VerticalOptions="Center"  Clicked="HandleButtonClick" FontSize="24"/>
                 <Button HeightRequest = "100" WidthRequest="100" BackgroundColor="Red" Grid.Row="1" Grid.Column="2" x:Name="Tile12" Text="" HorizontalOptions="Center"  VerticalOptions="Center" Clicked="HandleButtonClick" FontSize="24"/>

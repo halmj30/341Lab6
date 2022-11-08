@@ -116,7 +116,7 @@ internal class TicTacToeGame
             return false;
         }
 
-        //Console.WriteLine(_start.ElapsedMilliseconds);
+        isFirstTurn = true;
         times.AddLast(_start.ElapsedMilliseconds/1000+"");
 
         if (victor != Player.Both) //if the game is still going on and not a tie
