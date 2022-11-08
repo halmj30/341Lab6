@@ -1,6 +1,7 @@
-﻿using Javax.Security.Auth;
+﻿//using Javax.Security.Auth;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,11 @@ namespace Lab6Starter;
 
 /**
  * 
- * Name: 
- * Date:
- * Description:
+ * Name: Jack Halm
+ * Date: 11/7/2022
+ * Description: A TicTacToe Game
  * Bugs:
- * Reflection: The most important bit ...
+ * Reflection:
  * 
  */
 
@@ -24,10 +25,11 @@ internal class TicTacToeGame
 {
     internal const int GRID_SIZE = 3;
     Player[,] grid = new Player[GRID_SIZE, GRID_SIZE];
-    int[] scores = { 0, 0 };
-    private DateTime _start;
+    int[] scores = { 0, 0 }; // O score, X score
+    LinkedList<String> times = new();
+    private Stopwatch _start;
     Boolean isFirstTurn = true;
-         
+
     /// <summary>
     /// The player about to make a move
     /// </summary>
@@ -70,6 +72,10 @@ internal class TicTacToeGame
         }
     }
 
+    public string lastgamestime() { 
+        return times.Last.Value;
+    }
+
     /// <summary>
     /// Resets the game
     /// </summary>
@@ -91,7 +97,7 @@ internal class TicTacToeGame
     {
         if (isFirstTurn)
         {
-            _start = DateTime.Now;
+            _start = Stopwatch.StartNew(); //get the initial time
             isFirstTurn = false;
         }
        
@@ -109,6 +115,14 @@ internal class TicTacToeGame
             ToggleCurrentPlayer();
             return false;
         }
+
+        //Console.WriteLine(_start.ElapsedMilliseconds);
+        times.AddLast(_start.ElapsedMilliseconds/1000+"");
+
+        if (victor != Player.Both) //if the game is still going on and not a tie
+        {
+            scores[(int)victor]+=1;//update the score
+        }
         return true;
     }
 
@@ -122,7 +136,7 @@ internal class TicTacToeGame
         int rowSum;
         int colSum;
         int diagonalSum;
-        Boolean gridFilled = false;                   // if grid is filled, and no winner, there's a tie
+        Boolean gridFilled = true;                  // if grid is filled, and no winner, there's a tie
 
         for (int r = 0; r < GRID_SIZE; r++)         // check the row sums
         {
@@ -134,7 +148,6 @@ internal class TicTacToeGame
                 {
                     gridFilled = false;
                 }
-                gridFilled = true;
             }
             if (rowSum == 0)
             {

@@ -1,19 +1,19 @@
 ﻿namespace Lab6Starter;
 
-using AndroidX.Annotations;
-using Java.Security.Cert;
+//using AndroidX.Annotations;
+//using Java.Security.Cert;
 /**
  * 
- * Name: 
- * Date: How about this?
- * Description:
+ * Name: Jack Halm
+ * Date: 11/7/2022
+ * Description: A TicTacToe Game
  * Bugs:
  * Reflection:
  * 
  */
 
 using Lab6Starter;
-using static Android.InputMethodServices.Keyboard;
+//using static Android.InputMethodServices.Keyboard;
 
 
 /// <summary>
@@ -32,6 +32,8 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         ticTacToe = new TicTacToeGame();
+        //set x score
+        //set y score
         grid = new Button[TicTacToeGame.GRID_SIZE, TicTacToeGame.GRID_SIZE] { { Tile00, Tile01, Tile02 }, { Tile10, Tile11, Tile12 }, { Tile20, Tile21, Tile22 } };
     }
 
@@ -103,7 +105,8 @@ public partial class MainPage : ContentPage
         //MessageBox.Show(Application.Current.MainWindow, String.Format("Congratulations, {0}, you're the big winner today", victor.ToString()));
         XScoreLBL.Text = String.Format("X's Score: {0}", ticTacToe.XScore);
         OScoreLBL.Text = String.Format("O's Score: {0}", ticTacToe.OScore);
-
+        TimerLBL.Text = String.Format("Last Game took {0} seconds", ticTacToe.lastgamestime());
+        Console.WriteLine(ticTacToe.lastgamestime());
         ResetGame();
     }
 
@@ -120,7 +123,7 @@ public partial class MainPage : ContentPage
                 grid[r, c].Text = "";
             }
         }
-        
+        ticTacToe.ResetGame();
     }
 
 }

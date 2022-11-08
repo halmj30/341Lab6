@@ -2,10 +2,10 @@
 
 /**
  * 
- * Name: 
- * Date:
- * Description:
- * Bugs: Did you miss this?
+ * Name: Jack Halm
+ * Date: 11/7/2022
+ * Description: A TicTacToe Game
+ * Bugs:
  * Reflection:
  * 
  */
