@@ -34,6 +34,13 @@
 
             </Grid>
 
+            <ListView x:Name="GamesListView" ItemsSource="{Binding games}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding DataString}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </VerticalStackLayout>
     </ScrollView>
 

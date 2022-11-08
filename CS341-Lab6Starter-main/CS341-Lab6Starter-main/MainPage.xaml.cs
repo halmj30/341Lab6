@@ -13,6 +13,8 @@
  */
 
 using Lab6Starter;
+using System.Collections.ObjectModel;
+
 //using static Android.InputMethodServices.Keyboard;
 
 
@@ -24,6 +26,8 @@ public partial class MainPage : ContentPage
     TicTacToeGame ticTacToe; // model class
     Button[,] grid;          // stores the buttons
     Boolean randomColor = false;
+    ObservableCollection<GameData> games = new();
+
 
 
     /// <summary>
@@ -33,8 +37,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         ticTacToe = new TicTacToeGame();
-        //set x score
-        //set y score
+        GamesListView.ItemsSource = games;
         grid = new Button[TicTacToeGame.GRID_SIZE, TicTacToeGame.GRID_SIZE] { { Tile00, Tile01, Tile02 }, { Tile10, Tile11, Tile12 }, { Tile20, Tile21, Tile22 } };
     }
 
@@ -139,7 +142,14 @@ public partial class MainPage : ContentPage
         XScoreLBL.Text = String.Format("X's Score: {0}", ticTacToe.XScore);
         OScoreLBL.Text = String.Format("O's Score: {0}", ticTacToe.OScore);
         TimerLBL.Text = String.Format("Last Game took {0} seconds", ticTacToe.lastgamestime());
-        Console.WriteLine(ticTacToe.lastgamestime());
+
+        //update list view
+        GameData game = new GameData(victor, ticTacToe.lastgamestime());
+        games.Add(game);
+
+        //send to bit.io
+
+
         ResetGame();
     }
 
